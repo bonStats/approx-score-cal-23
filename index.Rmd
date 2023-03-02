@@ -67,7 +67,7 @@ padding: 0.25cm;
 
 Joint work with 
 
-- **Christopher Drovandi** **David Warne**, QUT
+- **Christopher Drovandi** and **David Warne**, QUT
 - **David Nott**, NUS
 
 
@@ -88,36 +88,75 @@ Paper
 ---
 class: list-space
 
+## Motivation
+
+Plots, systematic error in approximate posterior (at least in a region of the parameter space)
 
 ---
+class: list-space
 
-## Hidden Markov models
+## Bayesian Score Calibration
 
+Generate
+
+Optimise
+
+Apply
+
+---
+class: list-space
+
+## Generate
+<!-- show theory then samples -->
+-> ->
+
+Pairs
+
+---
+class: list-space
+
+## Optimise
+<!-- show theory then samples -->
+
+---
+class: list-space
+
+## Apply
+<!-- show theory then samples -->
+
+---
+class: list-space
+
+## Overview
+
+Schematic
+
+---
+class: list-space
+
+## Theoretical justification of optimisation
+
+
+---
+class: list-space
+
+## What about the weights?
+
+
+---
+class: list-space
+
+## Examples
 
 ---
 class: list-space
 
 ## Conclusions
 
-- Twisted FK models can define perfect samplers
+
 
 --
-- Analytical twisting limited to only few models (i.e. those with Bayesian conjugacy)
-
---
-- Extend with rejection sampling and random-weight SMC
-
---
-- Partial-rejection options may be available
-
---
-- Current/future work
-   - Pseudo-marginal MCMC
-   - New models  
-   - Recommendations for when to use
-
---
-- Arxiv: https://arxiv.org/abs/2208.04288
+- arXiv: https://arxiv.org/abs/2211.05357
 
 ---
 class: inverse, center, middle, hide-logo
