@@ -1,0 +1,125 @@
+---
+title: "Bayesian score calibration for approximate models"
+subtitle: ""
+author: "Joshua J Bon"
+institute: "Queensland University of Technology"
+date: "BayesComp 2023"
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "hygge", "bon-qut-campus-title.css"] #css: ["default", "default-fonts", "hygge"] #
+    lib_dir: libs
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+       after_body: insert-logo.html
+
+---
+class: list-space
+
+```{r setup, load_refs, include=FALSE, cache=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(RColorBrewer)
+library(kableExtra)
+library(purrr)
+
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "html",
+           hyperlink = FALSE,
+           dashed = FALSE)
+myBib <- ReadBib("biblio.bib", check = FALSE)
+
+#### Helpers ####
+capitalize <- function(string) {
+  substr(string, 1, 1) <- toupper(substr(string, 1, 1))
+  string
+}
+
+attach_name <- function(string, name){
+  paste(name, "=", capitalize(string))
+}
+
+
+knitr::opts_chunk$set(cache = T)
+
+
+```
+<style>
+
+.list-space li {
+padding: 0.25cm;
+}
+
+.list-nobullet li {
+  list-style-type:none;
+}
+
+</style>
+
+Joint work with 
+
+- **Christopher Drovandi** **David Warne**, QUT
+- **David Nott**, NUS
+
+
+Groups
+
+- **School of Mathematical Sciences**, QUT
+- **Centre for Data Science**, QUT
+
+Contact
+
+- Twitter: **@bonstats**
+- Email: **joshuajbon@gmail.com**
+
+Paper
+
+- https://arxiv.org/abs/2211.05357
+
+---
+class: list-space
+
+
+---
+
+## Hidden Markov models
+
+
+---
+class: list-space
+
+## Conclusions
+
+- Twisted FK models can define perfect samplers
+
+--
+- Analytical twisting limited to only few models (i.e. those with Bayesian conjugacy)
+
+--
+- Extend with rejection sampling and random-weight SMC
+
+--
+- Partial-rejection options may be available
+
+--
+- Current/future work
+   - Pseudo-marginal MCMC
+   - New models  
+   - Recommendations for when to use
+
+--
+- Arxiv: https://arxiv.org/abs/2208.04288
+
+---
+class: inverse, center, middle, hide-logo
+
+## Thank you for listening `r emo::ji("tornado")`
