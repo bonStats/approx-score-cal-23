@@ -92,31 +92,51 @@ class: list-space
 
 Plots, systematic error in approximate posterior (at least in a region of the parameter space)
 
+Examples: VI, asymptotic likelihood approximations are biased, inexact numerical schemes, approximate inference
+
 ---
 class: list-space
 
 ## Bayesian Score Calibration
 
-Generate
+1. **Generate**
+  - sample $(\bar\theta, \tilde{y}, \hat{\theta}_{1:N})$ 
+  - (ground truth, simulated data, posterior)
 
-Optimise
+2. **Optimise**
+  - Find best transformation $f$
+  - Using $S(f(\theta),\bar\theta)$ approximated from samples.
 
-Apply
+3. **Apply**
+  - $f$ to posterior of real data
+  - calculate calibration diagnostics.
 
 ---
 class: list-space
 
 ## Generate
-<!-- show theory then samples -->
--> ->
 
-Pairs
+
+$$
+\bar\theta^{(m)} \sim \bar\Pi \quad \longrightarrow \quad \tilde{y}^{(m)} \sim P(
+\:\cdot\;\vert~\bar\theta^{(m)} ) \quad \longrightarrow \quad \hat\theta^{(m)}_{1:N} \sim \hat{\Pi}(\;\cdot\;\vert \tilde{y}^{(m)})
+$$
 
 ---
 class: list-space
 
 ## Optimise
-<!-- show theory then samples -->
+
+$$
+f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{h}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]
+$$
+
+$$f^{\star} \approx \underset{f \in \mathcal{F}}{\arg\max}~ \sum_{m=1}^{M} w(\bar\theta^{(m)}, \tilde{y}^{(m)})S^{N}\left(f_{h}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta^{(m)}\right)$$
+
+---
+class: list-space
+
+## Energy score and approximation
 
 ---
 class: list-space
