@@ -65,9 +65,11 @@ padding: 0.25cm;
 
 </style>
 
+.pull-left[
 Joint work with 
 
-- **Christopher Drovandi** and **David Warne**, QUT
+- **Christopher Drovandi**, QUT
+- **David Warne**, QUT
 - **David Nott**, NUS
 
 
@@ -84,6 +86,17 @@ Contact
 Paper
 
 - https://arxiv.org/abs/2211.05357
+
+]
+
+.pull-right[
+
+```{r, snow-bike, echo=FALSE, out.height="550"}
+knitr::include_graphics("imgs/snow-bike.JPG")
+```
+
+
+]
 
 ---
 class: list-space
