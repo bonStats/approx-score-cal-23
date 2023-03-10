@@ -101,6 +101,24 @@ knitr::include_graphics("imgs/snow-bike.JPG")
 ---
 class: list-space
 
+## Motivation: Approximate models and approximate inference
+
+- Likelihood approximations
+  - Limiting distributions
+  - Whittle likelihood
+  - Model simplification (e.g. SDE -> ODE)
+  - Linear noise approximation
+- Posterior approximations
+  - Laplace
+  - Variational inference
+  - Unadjusted Langevin
+  - ABC
+  - IS
+  - MCMC (MH, MALA, HMC)
+
+---
+class: list-space
+
 ## Motivation
 
 Plots, systematic error in approximate posterior (at least in a region of the parameter space)
@@ -129,22 +147,29 @@ class: list-space
 
 ## Generate
 
-
+.content-box-blue[
 $$
 \bar\theta^{(m)} \sim \bar\Pi \quad \longrightarrow \quad \tilde{y}^{(m)} \sim P(
 \:\cdot\;\vert~\bar\theta^{(m)} ) \quad \longrightarrow \quad \hat\theta^{(m)}_{1:N} \sim \hat{\Pi}(\;\cdot\;\vert \tilde{y}^{(m)})
 $$
+]
 
 ---
 class: list-space
 
 ## Optimise
 
+.content-box-blue[
 $$
-f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{h}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]
+f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]
 $$
+]
 
-$$f^{\star} \approx \underset{f \in \mathcal{F}}{\arg\max}~ \sum_{m=1}^{M} w(\bar\theta^{(m)}, \tilde{y}^{(m)})S^{N}\left(f_{h}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta^{(m)}\right)$$
+--
+
+.content-box-red[
+$$f^{\star} \approx \underset{f \in \mathcal{F}}{\arg\max}~ \sum_{m=1}^{M} w(\bar\theta^{(m)}, \tilde{y}^{(m)})S^{N}\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta^{(m)}\right)$$
+]
 
 ---
 class: list-space
