@@ -28,6 +28,8 @@ library(scales)
 library(RColorBrewer)
 library(kableExtra)
 library(purrr)
+library(distributional)
+library(ggdist)
 
 library(RefManageR)
 BibOptions(check.entries = FALSE,
@@ -101,29 +103,88 @@ knitr::include_graphics("imgs/snow-bike.JPG")
 ---
 class: list-space
 
-## Motivation: Approximate models and approximate inference
+## Motivation: Troublesome likelihoods
 
-- Likelihood approximations
+**Intractable and/or computationally expensive**
+
+Current methods: 
+- 10,000s of realisations of the data generating process (ABC, pseudo-marginal MCMC)
+- May not target the true posterior (ABC)
+- Higher dimensions?
+
+---
+class: list-space
+
+## Motivation: Approximations everywhere
+
+.pull-left[
+**Likelihood approximations**
   - Limiting distributions
   - Whittle likelihood
   - Model simplification (e.g. SDE -> ODE)
   - Linear noise approximation
-- Posterior approximations
+]
+
+--
+
+.pull-right[
+**Posterior approximations**
   - Laplace
   - Variational inference
-  - Unadjusted Langevin
   - ABC
-  - IS
-  - MCMC (MH, MALA, HMC)
+]
+
+--
+
+.pull-right[
+**Sampling approximations**
+  - Importance sampling
+  - MCMC (MH, ULA, MALA, HMC)
+]
 
 ---
 class: list-space
 
 ## Motivation
 
-Plots, systematic error in approximate posterior (at least in a region of the parameter space)
+.pull-left[
+```{r bias-plot, echo = F}
 
-Examples: VI, asymptotic likelihood approximations are biased, inexact numerical schemes, approximate inference
+true_mu <- 1
+true_sigma <- 0.3
+
+mu <- rnorm(9, mean = 1, sd = 0.1) + 0.25
+sigma <- true_sigma + runif(9, -0.1, 0.1)
+
+dt <- tibble(dist = dist_normal(mu = mu, sigma = sigma),
+`Approx posterior` = paste0("p(x | y[",1:9,"])"))
+
+dist_mean <-  mean(mean(dt[["dist"]]))
+
+ggplot(dt) + 
+  stat_slab(aes(xdist = dist, colour = `Approx posterior`), slab_alpha = 0.1) +
+  scale_color_discrete() +
+  geom_vline(aes(xintercept = true_mu)) +
+  geom_vline(aes(xintercept = dist_mean), linetype = "dashed") +
+  theme_bw() +
+  theme(axis.text.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  scale_x_continuous("x", breaks = c(0,1,2)) +
+   geom_segment(aes(x = dist_mean, y = 1, xend = true_mu, yend = 1),
+                  arrow = arrow(length = unit(0.5, "cm")), colour = "red")
+
+```
+]
+.pull-right[
+**Data generating process**
+$$y[i] \sim P(~\cdot~\vert~x=1)$$
+
+- .red[Correct bias]
+- Correct variance?
+- Correct posterior?
+]
+
 
 ---
 class: list-space
@@ -160,9 +221,7 @@ class: list-space
 ## Optimise
 
 .content-box-blue[
-$$
-f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]
-$$
+$$f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]$$
 ]
 
 --

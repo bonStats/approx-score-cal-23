@@ -78,11 +78,61 @@ Paper
 ---
 class: list-space
 
+## Motivation: Troublesome likelihoods
+
+**Intractable and/or computationally expensive**
+
+Current methods: 
+- 10,000s of realisations of the data generating process (ABC, pseudo-marginal MCMC)
+- May not target the true posterior (ABC)
+- Higher dimensions?
+
+---
+class: list-space
+
+## Motivation: Approximations everywhere
+
+.pull-left[
+**Likelihood approximations**
+  - Limiting distributions
+  - Whittle likelihood
+  - Model simplification (e.g. SDE -&gt; ODE)
+  - Linear noise approximation
+]
+
+--
+
+.pull-right[
+**Posterior approximations**
+  - Laplace
+  - Variational inference
+  - ABC
+]
+
+--
+
+.pull-right[
+**Sampling approximations**
+  - Importance sampling
+  - MCMC (MH, ULA, MALA, HMC)
+]
+
+---
+class: list-space
+
 ## Motivation
 
-Plots, systematic error in approximate posterior (at least in a region of the parameter space)
+.pull-left[
+![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+`$$y[i] \sim P(~\cdot~\vert~x=1)$$`
 
-Examples: VI, asymptotic likelihood approximations are biased, inexact numerical schemes, approximate inference
+- .red[Correct bias]
+- Correct variance?
+- Correct posterior?
+]
+
 
 ---
 class: list-space
@@ -119,9 +169,7 @@ class: list-space
 ## Optimise
 
 .content-box-blue[
-$$
-f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]
-$$
+`$$f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]$$`
 ]
 
 --

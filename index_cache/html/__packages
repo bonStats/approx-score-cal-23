@@ -6,3 +6,5 @@ RColorBrewer
 kableExtra
 purrr
 RefManageR
+distributional
+ggdist
