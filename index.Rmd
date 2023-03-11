@@ -147,13 +147,26 @@ class: list-space
 
 ## Motivation
 
+
 .pull-left[
+**Data**: $y[i] \sim P(~\cdot~\vert~x=1)$
+
+**Approx posterior**: $p(~x~\vert~y[i])$
+
+- .red[Correct bias]
+
+
+]
+
+--
+
+.pull-right[
 ```{r bias-plot, echo = F}
 
 true_mu <- 1
 true_sigma <- 0.3
 
-mu <- rnorm(9, mean = 1, sd = 0.1) + 0.25
+mu <- rnorm(9, mean = 1, sd = 0.1) + 0.4
 sigma <- true_sigma + runif(9, -0.1, 0.1)
 
 dt <- tibble(dist = dist_normal(mu = mu, sigma = sigma),
@@ -176,15 +189,24 @@ ggplot(dt) +
 
 ```
 ]
-.pull-right[
-**Data generating process**
-$$y[i] \sim P(~\cdot~\vert~x=1)$$
 
-- .red[Correct bias]
-- Correct variance?
-- Correct posterior?
-]
+---
+class: list-space
 
+## Motivation
+
+- Can we correct for a distribution of parameter values?
+- Can we correct the variance?
+- Can we correct the entire distribution?
+
+---
+class: list-space
+
+## Proper scoring rules
+
+Let $P$ be a probability measure, the scoring rule $S(P,x)$ measures the accuracy of the ''forecast'' $P$ for the ''true'' value $x$.
+
+A proper scoring rule is one such that 
 
 ---
 class: list-space
