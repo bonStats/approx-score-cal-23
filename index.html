@@ -124,14 +124,17 @@ class: list-space
 
 
 .pull-left[
-**Data**: `\(y[i] \sim P(~\cdot~\vert~x=1)\)`
+**Simulate the posterior fitting process**
+&lt;br&gt;
+1. `$$y \sim P(~\cdot~\vert~\theta=1)$$`
 
-**Approx posterior**: `\(p(~x~\vert~y[i])\)`
+2. `$$(\theta \vert y) \sim p(~\cdot~\vert~y)$$`
+&lt;br&gt;
 
-- .red[Correct bias]
-- Correct variance?
-- Correct posterior?
-
+**Corrections**
+&lt;br&gt;
+1. Bias: `\(\mathbb{E}[~\mathbb{E}(\theta~\vert~y) - 1~]\)`
+2. Coverage
 ]
 
 --
@@ -140,6 +143,38 @@ class: list-space
 ![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
 ]
 
+---
+class: list-space
+
+## Motivation
+
+Can we correct for a distribution of parameter values?
+
+`$$\theta \sim \Pi$$`
+
+--
+
+Can we correct the variance?
+
+--
+
+Can we correct the entire distribution?
+
+--
+
+- No true distribution to compare to!
+
+
+---
+class: list-space
+
+## Proper scoring rules
+
+Let `\(U\)` be a probability measure, the scoring rule `\(S(U,x)\)` measures the accuracy of the probabilistic ''forecast'' `\(U\)` for the ''true'' value `\(x\)`.
+
+If `\(V\)` is a probability measure, define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`.
+
+A scoring rule `\(S(U, \cdot)\)` is *strictly proper* if `\(S(U,U) \geq S(U, V)\)` for all `\(V\)` in some family of probability distributions and equality holds if and only if `\(U = V\)`.
 
 ---
 class: list-space
@@ -147,7 +182,7 @@ class: list-space
 ## Bayesian Score Calibration
 
 1. **Generate**
-  - sample `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` 
+  - Sample `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` 
   - (ground truth, simulated data, posterior)
 
 2. **Optimise**
@@ -190,11 +225,29 @@ class: list-space
 
 ## Energy score and approximation
 
+`$$S(U, x) = \frac{1}{2}\mathbb{E}_{u,u^\prime\sim U}\Vert u - u^\prime \Vert_2^{\beta} - \mathbb{E}_{u\sim U}\Vert u - x \Vert_2^{\beta}$$`
+for `\(\beta \in (0,2)\)`.
+
+`$$S^{N}(U, x) = \frac{1}{N}\sum_{i=1}^{N} \left(\frac{1}{2}\Vert u - u_{k_i} \Vert_2^{\beta} - \Vert u - x \Vert_2^{\beta}\right)$$`
+
+where `\(u\sim U\)` and `\(k\)` is a random permutation vector.
+
+
 ---
 class: list-space
 
 ## Apply
 &lt;!-- show theory then samples --&gt;
+
+**Adjusted posterior** for observed data
+
+`$$\theta = f^{\star}(\hat\theta)$$`
+
+where `\(\hat\theta \sim \hat\Pi(\cdot \vert y)\)`
+
+**Calibration diagnostic**
+
+
 
 ---
 class: list-space
@@ -206,7 +259,7 @@ Schematic
 ---
 class: list-space
 
-## Theoretical justification of optimisation
+## Theoretical justification
 
 
 ---
@@ -216,9 +269,173 @@ class: list-space
 
 
 ---
-class: list-space
 
-## Examples
+## Example 1: OU Process (limiting approximation)
+
+![](index_files/figure-html/ou-limit-dens-1.png)&lt;!-- --&gt;
+
+---
+
+## Example 1: OU Process (limiting approximation)
+
+.pull-left[
+`\(\mu\)`
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MSE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Bias &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; St. Dev &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Coverage.(90%) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Approx-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; True-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 94 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+`\(D\)`
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MSE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Bias &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; St. Dev &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Coverage.(90%) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Approx-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.73 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.46 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.83 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.08 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 83 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; True-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Example 2: Bivariate OU Process (VI approximation)
+
+.pull-left[
+![](index_files/figure-html/ou-vi-contour-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+**Correlation summaries**
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; St. Dev. &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Approx-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; True-post &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Example 2: Bivariate OU Process (VI approximation)
+
+![](index_files/figure-html/ou-vi-check-1.png)&lt;!-- --&gt;
+
 
 ---
 class: list-space

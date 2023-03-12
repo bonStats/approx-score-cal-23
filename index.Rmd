@@ -149,13 +149,17 @@ class: list-space
 
 
 .pull-left[
-**Data**: $y[i] \sim P(~\cdot~\vert~x=1)$
+**Simulate the posterior fitting process**
+<br>
+1. $$y \sim P(~\cdot~\vert~\theta=1)$$
 
-**Approx posterior**: $p(~x~\vert~y[i])$
+2. $$(\theta \vert y) \sim p(~\cdot~\vert~y)$$
+<br>
 
-- .red[Correct bias]
-
-
+**Corrections**
+<br>
+1. Bias: $\mathbb{E}[~\mathbb{E}(\theta~\vert~y) - 1~]$
+2. Coverage
 ]
 
 --
@@ -170,7 +174,7 @@ mu <- rnorm(9, mean = 1, sd = 0.1) + 0.4
 sigma <- true_sigma + runif(9, -0.1, 0.1)
 
 dt <- tibble(dist = dist_normal(mu = mu, sigma = sigma),
-`Approx posterior` = paste0("p(x | y[",1:9,"])"))
+`Approx posterior` = paste0("p(\u03B8 | y[",1:9,"])"))
 
 dist_mean <-  mean(mean(dt[["dist"]]))
 
@@ -183,7 +187,7 @@ ggplot(dt) +
   theme(axis.text.y = element_blank(), 
         axis.title.y = element_blank(),
         axis.ticks.y = element_blank()) +
-  scale_x_continuous("x", breaks = c(0,1,2)) +
+  scale_x_continuous("\u03B8", breaks = c(0,1,2)) +
    geom_segment(aes(x = dist_mean, y = 1, xend = true_mu, yend = 1),
                   arrow = arrow(length = unit(0.5, "cm")), colour = "red")
 
@@ -195,9 +199,22 @@ class: list-space
 
 ## Motivation
 
-- Can we correct for a distribution of parameter values?
-- Can we correct the variance?
-- Can we correct the entire distribution?
+Can we correct for a distribution of parameter values?
+
+$$\theta \sim \Pi$$
+
+--
+
+Can we correct the variance?
+
+--
+
+Can we correct the entire distribution?
+
+--
+
+- No true distribution to compare to!
+
 
 ---
 class: list-space
@@ -303,9 +320,85 @@ class: list-space
 
 
 ---
-class: list-space
 
-## Examples
+## Example 1: OU Process (limiting approximation)
+
+```{r, ou-limit-dens, echo = F}
+magick::image_read_pdf("imgs/ou-process-plot-uni-1.pdf",
+                       pages = 1)
+```
+
+---
+
+## Example 1: OU Process (limiting approximation)
+
+.pull-left[
+$\mu$
+```{r, ou-mu-table-1, echo = F}
+mu_dat_ou1 <- tibble::tribble(
+  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
+      "Approx-post", 1.54, 1.21, 0.22, 0,
+      "Adjust-post (0)", 0.12, 0.15, 0.20, 64,
+      "Adjust-post (0.5)", 0.12, 0.15, 0.23, 81,
+      "Adjust-post (1)", 0.12, 0.15, 0.23, 82,
+      "True-post", 0.12, -0.01, 0.26, 94
+  )
+knitr::kable(mu_dat_ou1, format = "html")
+```
+]
+
+.pull-right[
+$D$
+```{r, ou-D-table-1, echo = F}
+D_dat_ou1 <- tibble::tribble(
+  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
+      "Approx-post", 4.73, 0.18, 1.46, 85,
+      "Adjust-post (0)", 4.83, 0.28, 1.24, 72,
+      "Adjust-post (0.5)", 5.08, 0.41, 1.42, 81,
+      "Adjust-post (1)", 5.13, 0.42, 1.45, 83,
+      "True-post", 5.00, 0.37, 1.48, 85
+  )
+knitr::kable(D_dat_ou1, format = "html")
+```
+]
+
+---
+
+## Example 2: Bivariate OU Process (VI approximation)
+
+.pull-left[
+```{r, ou-vi-contour, echo = F, fig.height=200}
+out <- magick::image_read_pdf("imgs/gen-corr-ou-process-plot-contour.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+]
+
+.pull-right[
+**Correlation summaries**
+```{r, corr-table, echo = FALSE}
+corr_tab <- tribble(
+  ~Method, ~Mean, ~`St. Dev.`,
+"Approx-post", 0.00, 0.02,
+"Adjust-post (0)", 0.18, 0.41,
+"Adjust-post (0.5)", 0.37, 0.16,
+"Adjust-post (1)", 0.37, 0.15,
+"True-post", 0.42, 0.06
+)
+knitr::kable(corr_tab, format = "html")
+```
+]
+
+---
+
+## Example 2: Bivariate OU Process (VI approximation)
+
+```{r, ou-vi-check, echo = F, fig.height=100}
+out <- magick::image_read_pdf("imgs/gen-corr-ou-process-plot-calcheck.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+
 
 ---
 class: list-space
