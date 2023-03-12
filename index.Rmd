@@ -367,7 +367,7 @@ knitr::kable(D_dat_ou1, format = "html")
 ## Example 2: Bivariate OU Process (VI approximation)
 
 .pull-left[
-```{r, ou-vi-contour, echo = F, fig.height=200}
+```{r, ou-vi-contour, echo = F}
 out <- magick::image_read_pdf("imgs/gen-corr-ou-process-plot-contour.pdf",
                        pages = 1)
 magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
@@ -399,6 +399,45 @@ out <- magick::image_read_pdf("imgs/gen-corr-ou-process-plot-calcheck.pdf",
 magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ```
 
+---
+
+## Example 3: Whittle likelihood
+
+.pull-left[
+```{r, ou-whittle-dens, echo = F}
+out <- magick::image_read_pdf("imgs/whittle_example_theta_plot_orig.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+]
+
+.pull-right[
+```{r, ou-whittle-calcheck, echo = F}
+out <- magick::image_read_pdf("imgs/whittle-calcheck.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+]
+
+---
+
+## Example 4: Lotka-Volterra SDE
+
+.pull-left[
+```{r, ou-lv-dens, echo = F}
+out <- magick::image_read_pdf("imgs/lotka-posterior-comparison.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+]
+
+.pull-right[
+```{r, ou-lv-calcheck, echo = F}
+out <- magick::image_read_pdf("imgs/lotka-calcheck.pdf",
+                       pages = 1)
+magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
+```
+]
 
 ---
 class: list-space
