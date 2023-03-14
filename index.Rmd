@@ -3,7 +3,7 @@ title: "Bayesian score calibration for approximate models"
 subtitle: ""
 author: "Joshua J Bon"
 institute: "Queensland University of Technology"
-date: "BayesComp 2023"
+date: "Without Exact Likelihoods '23"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "hygge", "bon-qut-campus-title.css"] #css: ["default", "default-fonts", "hygge"] #
@@ -691,11 +691,46 @@ class: list-space
 
 
 ---
-class: list-space
 
 ## Justification of unit weights
 
-When we take $\alpha =1$ 
+When we take $\alpha =1$, $\hat{w} = 1$!
+
+--
+
+.content-box-blue[
+**Theorem 2**
+
+Let $g(x) = \bar \pi(x) / \pi(x)$ for $x \in \Theta$. 
+
+- If an estimator $\theta^{\ast}_n \equiv \theta^{\ast}(\tilde{y}_{1:n})$ exists such that  $\theta^{\ast}_n \rightarrow z$ a.s. for $n \rightarrow \infty$ when $\tilde{y}_i \sim P(\cdot ~\vert~ z)$ for $z \in \Theta$,
+
+- If $g$ is positive and continuous at $z$ then the error when using $\hat{w} = 1$ satisfies
+$$\hat{w} - w(\theta,\tilde{y}_{1:n}) \rightarrow 0$$ 
+a.s. for $n \rightarrow \infty$
+]
+
+--
+
+CLT for unit weights appears in our paper
+
+---
+
+## Justification of unit weights
+
+Theorem 2 is possible because of the stability function justified by Theorem 1.
+
+.content-box-blue[
+$$w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y})$$
+]
+
+--
+
+**Trick**: set $v(\tilde{y}) = \frac{\bar\pi(\theta^{\ast}_n )}{\pi(\theta^{\ast}_n )}$ and look at large sample properties.
+
+--
+
+Don't need to explicitly know the estimator $\theta^{\ast}_n$!
 
 ---
 class: list-space
