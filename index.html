@@ -410,7 +410,7 @@ class: list-space
 
 --
 
-Observe final observation at time `\(T\)` (replicated 100 times):
+Observe final observation at time `\(T\)` ($n= 100$):
 
 --
 
@@ -613,6 +613,28 @@ Mean-field **variational approximation**
 ## Example 2: Bivariate OU Process (VI approximation)
 
 ![](index_files/figure-html/ou-vi-check-1.png)&lt;!-- --&gt;
+
+---
+
+## Example 3: Whittle likelihood
+
+Fractional ARIMA time series 
+
+.content-box-blue[
+
+**ARFIMA**
+
+`$$\phi(L)(1-L)^d X_t = \vartheta(L)\epsilon_t$$`
+`$$\epsilon_t \sim \mathcal{N}(0,\sigma^2)$$`
+]
+
+
+--
+`\((p=2, d=0.4, q=1)\)` with `\(n = 15,000\)` observations.
+
+
+--
+Whittle likelihood defines **approximate posterior**.
 
 ---
 

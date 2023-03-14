@@ -467,7 +467,7 @@ $$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$
 
 --
 
-Observe final observation at time $T$ (replicated 100 times):
+Observe final observation at time $T$ ($n= 100$):
 
 --
 
@@ -587,6 +587,28 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 
 ## Example 3: Whittle likelihood
 
+Fractional ARIMA time series 
+
+.content-box-blue[
+
+**ARFIMA**
+
+$$\phi(L)(1-L)^d X_t = \vartheta(L)\epsilon_t$$
+$$\epsilon_t \sim \mathcal{N}(0,\sigma^2)$$
+]
+
+
+--
+$(p=2, d=0.4, q=1)$ with $n = 15,000$ observations.
+
+
+--
+Whittle likelihood defines **approximate posterior**.
+
+---
+
+## Example 3: Whittle likelihood
+
 .pull-left[
 ```{r, ou-whittle-dens, echo = F}
 out <- magick::image_read_pdf("imgs/whittle_example_theta_plot_orig.pdf",
@@ -604,6 +626,12 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ]
 
 $M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), L = \text{Diagonal}$
+
+---
+
+## Example 4: Lotka-Volterra SDE
+
+
 
 ---
 
