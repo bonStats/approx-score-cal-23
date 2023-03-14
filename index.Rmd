@@ -165,9 +165,8 @@ class: list-space
 
 ## Motivation
 
-- Fast approximate model $\hat\pi(\theta~\vert~y)$ known to be biased
+- Fast approximate model $\hat\pi(\theta~\vert~y)$ known to be biased, data simulation is expensive
 - Correct the bias (average over $\theta$) using simulation
-- Simulation is expensive
 
 
 --
@@ -237,9 +236,11 @@ ggplot(dt) +
 **Questions**
 
 
-1. Can we correct the variance?
+1. Can we correct the variance? *Frequentist*
 
-2. Can we correct the entire distribution?
+2. Correct coverage? *Frequentist*
+
+3. Can we correct the entire distribution? **Bayesian**
 
 ]
 
@@ -250,13 +251,7 @@ class: list-space
 
 **Scoring rule** $S(U,x)$ compares probabilistic ''forecast'' $U$ for the ''true'' value $x$.
 
-<br>
-<br>
-
 Define $S(U,V) = \mathbb{E}_{x\sim V} S(U,x)$, where $V$ is a probability measure.
-
-<br>
-<br>
 
 .content-box-blue[
 $S(U, \cdot)$ is **strictly proper** if 
@@ -264,12 +259,15 @@ $S(U, \cdot)$ is **strictly proper** if
 - equality holds if and only if $U = V$.
 ]
 
----
-class: list-space
+--
 
-## Proper scoring rules
+.content-box-red[ 
 
-$$S(\hat\Pi(~\cdot~\vert~\tilde{y}_m), \bar{\theta}_m)$$
+**We use a proper scoring rule:**
+
+$$\underset{f \in \mathcal{F}}{\arg\max}~\mathbb{E}_{\theta\sim\Pi}\mathbb{E}_{\tilde{y}\sim P(\cdot\vert\theta) }S(f_{\#}\hat\Pi(~\cdot~\vert~\tilde{y}), \theta)$$
+]
+
 
 ---
 class: list-space
@@ -278,15 +276,17 @@ class: list-space
 
 1. **Generate**
   - Sample $(\bar\theta, \tilde{y}, \hat{\theta}_{1:N})$ $M$ times
-  - (ground truth, simulated data, posterior)
+  - Ground truth, simulated data, posterior
+--
 
 2. **Optimise**
   - Find best transformation $f$
-  - Using $S(f(\theta),\bar\theta)$ approximated from samples.
+  - Using $S\left(f_{\#}\hat\Pi(\cdot~\vert~\tilde{y}),\bar\theta\right)$ approximated from samples
+--
 
 3. **Apply**
   - $f$ to posterior of real data
-  - calculate calibration diagnostics.
+  - Calculate calibration diagnostics
 
 ---
 class: list-space
@@ -299,6 +299,14 @@ $$
 \:\cdot\;\vert~\bar\theta^{(m)} ) \quad \longrightarrow \quad \hat\theta^{(m)}_{1:N} \sim \hat{\Pi}(\;\cdot\;\vert \tilde{y}^{(m)})
 $$
 ]
+
+--
+
+- $\bar\Pi$ is an importance distribution to concentrate optimisation 
+
+- $P(\:\cdot\;\vert~\bar\theta )$ is data generating process
+
+- $\hat{\Pi}(\;\cdot\;\vert \tilde{y})$ is our approximate model
 
 ---
 class: list-space
@@ -315,18 +323,14 @@ $$f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\the
 $$f^{\star} \approx \underset{f \in \mathcal{F}}{\arg\max}~ \sum_{m=1}^{M} w(\bar\theta^{(m)}, \tilde{y}^{(m)})S^{N}\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta^{(m)}\right)$$
 ]
 
----
-class: list-space
+--
 
-## Energy score and approximation
-
-$$S(U, x) = \frac{1}{2}\mathbb{E}_{u,u^\prime\sim U}\Vert u - u^\prime \Vert_2^{\beta} - \mathbb{E}_{u\sim U}\Vert u - x \Vert_2^{\beta}$$
-for $\beta \in (0,2)$.
-
+.content-box-green[
+**Energy score approximation** with $u\sim f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y})$ and $k$ is a random permutation vector
 $$S^{N}(U, x) = \frac{1}{N}\sum_{i=1}^{N} \left(\frac{1}{2}\Vert u - u_{k_i} \Vert_2^{\beta} - \Vert u - x \Vert_2^{\beta}\right)$$
+]
 
-where $u\sim U$ and $k$ is a random permutation vector.
-
+$$~$$
 
 ---
 class: list-space
@@ -334,11 +338,13 @@ class: list-space
 ## Apply
 <!-- show theory then samples -->
 
+.content-box-blue[
 **Adjusted posterior** for observed data
 
 $$\theta = f^{\star}(\hat\theta)$$
 
 where $\hat\theta \sim \hat\Pi(\cdot \vert y)$
+]
 
 **Calibration diagnostic**
 
