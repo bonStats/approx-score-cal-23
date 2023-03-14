@@ -122,26 +122,45 @@ class: list-space
 
 ## Motivation
 
+Scenario:
+- Fast approximate model `\(p(\theta~\vert~y)\)` known to be biased
+- Correct the bias (average over `\(\theta\)`) using simulation
+- Simulation is expensive
+
+
+--
 
 .pull-left[
+
+
 **Simulate the posterior fitting process**
 &lt;br&gt;
-1. `$$y \sim P(~\cdot~\vert~\theta=1)$$`
+1. Draw from prior `\(\bar\theta_m \sim \Pi\)`
 
-2. `$$(\theta \vert y) \sim p(~\cdot~\vert~y)$$`
-&lt;br&gt;
+2. Draw new data `\(\tilde{y}_m \sim P(~\cdot~\vert~\theta_m)\)`
 
-**Corrections**
+3. Sample posterior `\((\theta_i \vert \tilde{y}_m) \sim p(~\cdot~\vert~\tilde{y}_m)\)`
 &lt;br&gt;
-1. Bias: `\(\mathbb{E}[~\mathbb{E}(\theta~\vert~y) - 1~]\)`
-2. Coverage
+for `\(m \in [1:M]\)` and `\(i \in [1:N]\)`
 ]
 
 --
 
 .pull-right[
-![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
+**Bias correction**
+&lt;br&gt;
+Using pairs `\((\theta_i, \{\theta_j\}_{i=1}^{N})\)` estimate average bias
+
+`$$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$`
 ]
+
+---
+class: list-space
+
+## Motivation
+
+![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
+
 
 ---
 class: list-space
@@ -170,11 +189,21 @@ class: list-space
 
 ## Proper scoring rules
 
-Let `\(U\)` be a probability measure, the scoring rule `\(S(U,x)\)` measures the accuracy of the probabilistic ''forecast'' `\(U\)` for the ''true'' value `\(x\)`.
+**Scoring rule** `\(S(U,x)\)` compares probabilistic ''forecast'' `\(U\)` for the ''true'' value `\(x\)`.
 
-If `\(V\)` is a probability measure, define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`.
+&lt;br&gt;
+&lt;br&gt;
 
-A scoring rule `\(S(U, \cdot)\)` is *strictly proper* if `\(S(U,U) \geq S(U, V)\)` for all `\(V\)` in some family of probability distributions and equality holds if and only if `\(U = V\)`.
+Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probability measure.
+
+&lt;br&gt;
+&lt;br&gt;
+
+.content-box-blue[
+`\(S(U, \cdot)\)` is **strictly proper** if 
+- `\(S(U,U) \geq S(U, V)\)` for all `\(V\)` in some family, and
+- equality holds if and only if `\(U = V\)`.
+]
 
 ---
 class: list-space
