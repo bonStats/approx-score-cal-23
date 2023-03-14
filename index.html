@@ -654,6 +654,28 @@ Whittle likelihood defines **approximate posterior**.
 
 ## Example 4: Lotka-Volterra SDE
 
+.content-box-blue[
+**LV-SDE**
+
+`$$\text{d} X_{t} = (\beta_1 X_{t} - \beta_2 X_{t} Y_{t} ) \text{d} t+ \sigma_1 \text{d} B_{t}^{1}$$`
+`$$\text{d} Y_{t} = (\beta_4 X_{t} Y_{t} - \beta_3 Y_{t} ) \text{d} t+ \sigma_2 \text{d} B_{t}^{2}$$`
+]
+
+
+--
+Use noisy quasi-likelihood as **approximate model**
+
+`$$L(\beta_{1:4}, \tau ~\vert~ x_{1:n}, y_{1:n}) = \tau^{2n}\exp\left(-\frac{\tau^2}{2} \sum_{i=1}^{n}\left[(x_i^\prime - x_i)^{2} + (y_i^\prime - y_i)^{2}\right] \right)$$`
+where are `\(\{(x_i^\prime,y_i^\prime)\}_{i=1}^{n}\)` simulated conditional on parameters and `\(\tau ∼ \text{Gamma}(2, 3)\)`.
+
+
+--
+**Further approximation**: use rough numerical integration scheme (Euler-Maruyama `\(\Delta t=0.01\)`).
+
+---
+
+## Example 4: Lotka-Volterra SDE
+
 .pull-left[
 ![](index_files/figure-html/ou-lv-dens-1.png)&lt;!-- --&gt;
 ]
@@ -662,7 +684,7 @@ Whittle likelihood defines **approximate posterior**.
 ![](index_files/figure-html/ou-lv-calcheck-1.png)&lt;!-- --&gt;
 ]
 
-`\(M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)\)`
+`\(M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), \sigma_1=\sigma_2=0.1\)`
 
 ---
 class: list-space
