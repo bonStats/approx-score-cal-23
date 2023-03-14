@@ -434,6 +434,12 @@ where $q_{1-\alpha}$ is $(1-\alpha)$ quantile of raw weights.
 
 ]
 
+---
+class: list-space
+
+## What's the transformation?
+
+**Moment-correcting transformation**
 
 ---
 
@@ -558,10 +564,31 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ---
 class: list-space
 
-## Future work
+## Limitations
 
-- Learn $v(\tilde{y})$ such that $w(\theta, \tilde{y}) \approx 1$ for small sample sizes
-- Pareto-smoothed weights
+--
+- Optimal transformation and calibration checks are *concentrated* on $\bar\Pi$ because of finite sample approximation
+
+--
+- Even more so when manipulating the weights of the method
+
+---
+class: list-space
+
+## Current and future work
+
+--
+- Apply to chemical reaction networks with coarse ABC-type approximate posterior
+
+--
+- Apply to agent-based models (e.g. SIR, biological cells) with ODE-based approximate posterior
+
+--
+- Try with Pareto-smoothed weights (Vehtari et al, 2022)
+
+--
+- Use flexibility of $v(\tilde{y})$ to obtain $w(\theta, \tilde{y}) \approx 1$ apply to control weights in a SNP-style or "...GNN via Scoring Rule Minimization" (Pacchiardi & Dutta 2022)
+
 
 
 --
@@ -570,4 +597,4 @@ class: list-space
 ---
 class: inverse, center, middle, hide-logo
 
-## Thank you for listening `r emo::ji("tornado")`
+## Thank you for listening `r emo::ji("snowboarder")`
