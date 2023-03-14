@@ -103,14 +103,32 @@ knitr::include_graphics("imgs/snow-bike.JPG")
 ---
 class: list-space
 
-## Motivation: Troublesome likelihoods
+## Motivation: Rascal likelihoods
 
-**Intractable and/or computationally expensive**
+.pull-left[
+Current methods for **intractable** likelihoods:
 
-Current methods: 
 - 10,000s of realisations of the data generating process (ABC, pseudo-marginal MCMC)
 - May not target the true posterior (ABC)
-- Higher dimensions?
+- How to identify method failure?
+
+]
+
+.pull-right[
+```{r, waiting, echo=FALSE}
+
+knitr::include_graphics("imgs/little_rascals_our_gang_waiting.gif")
+
+```
+]
+
+
+--
+
+.center[
+.content-box-red[
+But we have approximate likelihoods/models available...
+]]
 
 ---
 class: list-space
@@ -147,8 +165,7 @@ class: list-space
 
 ## Motivation
 
-Scenario:
-- Fast approximate model $p(\theta~\vert~y)$ known to be biased
+- Fast approximate model $\hat\pi(\theta~\vert~y)$ known to be biased
 - Correct the bias (average over $\theta$) using simulation
 - Simulation is expensive
 
@@ -156,27 +173,25 @@ Scenario:
 --
 
 .pull-left[
-
-
+.content-box-blue[
 **Simulate the posterior fitting process**
 <br>
 1. Draw from prior $\bar\theta_m \sim \Pi$
-
 2. Draw new data $\tilde{y}_m \sim P(~\cdot~\vert~\theta_m)$
-
-3. Sample posterior $(\theta_i \vert \tilde{y}_m) \sim p(~\cdot~\vert~\tilde{y}_m)$
+3. Sample posterior $(\theta_i \vert \tilde{y}_m) \sim \hat{\pi}(~\cdot~\vert~\tilde{y}_m)$
 <br>
 for $m \in [1:M]$ and $i \in [1:N]$
-]
+]]
 
 --
 
 .pull-right[
+.content-box-red[
 **Bias correction**
-<br>
-Using pairs $(\theta_i, \{\theta_j\}_{i=1}^{N})$ estimate average bias
-
-$$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$
+<br><br>
+1. Using pairs $(\theta_i, \{\theta_j\}_{i=1}^{N})$ estimate average bias $$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$
+2. Correct by transformation $$\theta^\prime = \theta - \text{bias}$$
+]
 ]
 
 ---
@@ -184,6 +199,7 @@ class: list-space
 
 ## Motivation
 
+.pull-left[
 ```{r bias-plot, echo = F}
 
 true_mu <- 1
@@ -193,7 +209,7 @@ mu <- rnorm(9, mean = 1, sd = 0.1) + 0.4
 sigma <- true_sigma + runif(9, -0.1, 0.1)
 
 dt <- tibble(dist = dist_normal(mu = mu, sigma = sigma),
-`Approx posterior` = paste0("p(\u03B8 | y[",1:9,"])"))
+`Approx posterior` = paste0("\u03C0(\u03B8 | y[",1:9,"])"))
 
 dist_mean <-  mean(mean(dt[["dist"]]))
 
@@ -205,35 +221,27 @@ ggplot(dt) +
   theme_bw() +
   theme(axis.text.y = element_blank(), 
         axis.title.y = element_blank(),
-        axis.ticks.y = element_blank()) +
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
   scale_x_continuous("\u03B8", breaks = c(0,1,2)) +
    geom_segment(aes(x = dist_mean, y = 1, xend = true_mu, yend = 1),
-                  arrow = arrow(length = unit(0.5, "cm")), colour = "red")
+                  arrow = arrow(length = unit(0.5, "cm")), colour = "red") +
+  ggtitle(expression(hat(pi)~(theta~`|`~y[i])))
 
 ```
-
-
----
-class: list-space
-
-## Motivation
-
-Can we correct for a distribution of parameter values?
-
-$$\theta \sim \Pi$$
+]
 
 --
 
-Can we correct the variance?
+.pull-right[
+**Questions**
 
---
 
-Can we correct the entire distribution?
+1. Can we correct the variance?
 
---
+2. Can we correct the entire distribution?
 
-- No true distribution to compare to!
-
+]
 
 ---
 class: list-space
@@ -259,10 +267,17 @@ $S(U, \cdot)$ is **strictly proper** if
 ---
 class: list-space
 
+## Proper scoring rules
+
+$$S(\hat\Pi(~\cdot~\vert~\tilde{y}_m), \bar{\theta}_m)$$
+
+---
+class: list-space
+
 ## Bayesian Score Calibration
 
 1. **Generate**
-  - Sample $(\bar\theta, \tilde{y}, \hat{\theta}_{1:N})$ 
+  - Sample $(\bar\theta, \tilde{y}, \hat{\theta}_{1:N})$ $M$ times
   - (ground truth, simulated data, posterior)
 
 2. **Optimise**

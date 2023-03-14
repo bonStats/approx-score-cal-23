@@ -78,14 +78,28 @@ Paper
 ---
 class: list-space
 
-## Motivation: Troublesome likelihoods
+## Motivation: Rascal likelihoods
 
-**Intractable and/or computationally expensive**
+.pull-left[
+Current methods for **intractable** likelihoods:
 
-Current methods: 
 - 10,000s of realisations of the data generating process (ABC, pseudo-marginal MCMC)
 - May not target the true posterior (ABC)
-- Higher dimensions?
+- How to identify method failure?
+
+]
+
+.pull-right[
+![](imgs/little_rascals_our_gang_waiting.gif)&lt;!-- --&gt;
+]
+
+
+--
+
+.center[
+.content-box-red[
+But we have approximate likelihoods/models available...
+]]
 
 ---
 class: list-space
@@ -122,8 +136,7 @@ class: list-space
 
 ## Motivation
 
-Scenario:
-- Fast approximate model `\(p(\theta~\vert~y)\)` known to be biased
+- Fast approximate model `\(\hat\pi(\theta~\vert~y)\)` known to be biased
 - Correct the bias (average over `\(\theta\)`) using simulation
 - Simulation is expensive
 
@@ -131,58 +144,47 @@ Scenario:
 --
 
 .pull-left[
-
-
+.content-box-blue[
 **Simulate the posterior fitting process**
 &lt;br&gt;
 1. Draw from prior `\(\bar\theta_m \sim \Pi\)`
-
 2. Draw new data `\(\tilde{y}_m \sim P(~\cdot~\vert~\theta_m)\)`
-
-3. Sample posterior `\((\theta_i \vert \tilde{y}_m) \sim p(~\cdot~\vert~\tilde{y}_m)\)`
+3. Sample posterior `\((\theta_i \vert \tilde{y}_m) \sim \hat{\pi}(~\cdot~\vert~\tilde{y}_m)\)`
 &lt;br&gt;
 for `\(m \in [1:M]\)` and `\(i \in [1:N]\)`
+]]
+
+--
+
+.pull-right[
+.content-box-red[
+**Bias correction**
+&lt;br&gt;&lt;br&gt;
+1. Using pairs `\((\theta_i, \{\theta_j\}_{i=1}^{N})\)` estimate average bias `$$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$`
+2. Correct by transformation `$$\theta^\prime = \theta - \text{bias}$$`
+]
+]
+
+---
+class: list-space
+
+## Motivation
+
+.pull-left[
+![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
 ]
 
 --
 
 .pull-right[
-**Bias correction**
-&lt;br&gt;
-Using pairs `\((\theta_i, \{\theta_j\}_{i=1}^{N})\)` estimate average bias
+**Questions**
 
-`$$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$`
+
+1. Can we correct the variance?
+
+2. Can we correct the entire distribution?
+
 ]
-
----
-class: list-space
-
-## Motivation
-
-![](index_files/figure-html/bias-plot-1.png)&lt;!-- --&gt;
-
-
----
-class: list-space
-
-## Motivation
-
-Can we correct for a distribution of parameter values?
-
-`$$\theta \sim \Pi$$`
-
---
-
-Can we correct the variance?
-
---
-
-Can we correct the entire distribution?
-
---
-
-- No true distribution to compare to!
-
 
 ---
 class: list-space
@@ -208,10 +210,17 @@ Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probabilit
 ---
 class: list-space
 
+## Proper scoring rules
+
+
+
+---
+class: list-space
+
 ## Bayesian Score Calibration
 
 1. **Generate**
-  - Sample `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` 
+  - Sample `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` `\(M\)` times
   - (ground truth, simulated data, posterior)
 
 2. **Optimise**
