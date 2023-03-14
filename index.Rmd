@@ -468,7 +468,7 @@ $$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$
 
 --
 
-Observe final observation at time $T$ ($n= 100$):
+Observe final observation at time $T$ ( $n= 100$):
 
 --
 
@@ -713,7 +713,7 @@ a.s. for $n \rightarrow \infty$
 
 --
 
-CLT for unit weights appears in our paper
+And a CLT for unit weights appears in our paper.
 
 ---
 
@@ -748,7 +748,9 @@ class: list-space
 - Try with Pareto-smoothed weights (Vehtari et al, 2022)
 
 --
-- Use flexibility of $v(\tilde{y})$ to obtain $w(\theta, \tilde{y}) \approx 1$ apply to control weights in a SNP-style algorithm or "...GNN via Scoring Rule Minimization" (Pacchiardi & Dutta, 2022)
+- Use flexibility of $v(\tilde{y})$ to obtain $w(\theta, \tilde{y}) \approx 1$ to control weights in 
+  - SNP-style algorithms
+  - Generative neural networks (Pacchiardi & Dutta, 2022)
 
 
 
@@ -756,5 +758,7 @@ class: list-space
 class: inverse, center, middle, hide-logo
 
 ## Thank you for listening `r emo::ji("snowboarder")`
-<br><br><br><br>
+<br><br><br>
 https://arxiv.org/abs/2211.05357
+<br><br> @bonstats 
+<br><br> @bon@bayes.club
