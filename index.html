@@ -192,14 +192,14 @@ class: list-space
 
 ## Proper scoring rules
 
-**Scoring rule** `\(S(U,x)\)` compares probabilistic *forecast* `\(U\)` for the *ground truth* `\(x\)`.
+**Scoring rule** `\(S(U,x)\)` compares probabilistic *forecast* `\(U\)` to *ground truth* `\(x\)`.
 
 Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probability measure.
 
 .content-box-blue[
 `\(S(U, \cdot)\)` is **strictly proper** if 
 - `\(S(U,U) \geq S(U, V)\)` for all `\(V\)` in some family, and
-- equality holds if and only if `\(U = V\)`.
+- equality holds iff `\(U = V\)`.
 ]
 
 --
@@ -298,7 +298,7 @@ class: list-space
 
 `$$\text{CC}(\rho) = \Pr\left\{\bar\theta \in \text{Cr}(f_{\#}^{\star}\hat\Pi(\cdot ~\vert~ \tilde{y}),\rho)\right\},\quad\text{where}~\tilde{y} \sim P( \cdot ~\vert~\bar\theta)$$`
 
-for `\(\rho \in (0,1)\)`.
+for `\(\rho \in (0,1)\)`. We consider univariate credible regions.
 
 ]
 
@@ -320,14 +320,15 @@ class: list-space
 
 
 **Theorem 1**:
-If `\(Q\)` has *sufficient support* about `\(y\)` and the family of kernels `\(\mathcal{K}\)` is *sufficiently rich*, then the Markov kernel `\(U^{\star}(\cdot~\vert~\cdot)\)`, defined as
-
 .content-box-blue[
+If `\(Q\)` has *sufficient support* about `\(y\)` and `\(\mathcal{K}\)` is *sufficiently rich*
+
+then the Markov kernel `\(U^{\star}(\cdot~\vert~\cdot)\)`, defined as
+
 `$$U^{\star}(\cdot~\vert~\cdot) \equiv \underset{U(\cdot~\vert~\cdot) \in \mathcal{K}}{\arg\max}~\mathbb{E}_{\theta \sim \bar\Pi} \mathbb{E}_{\tilde{y} \sim P(\cdot ~\vert~ \theta)}\left[w(\theta, \tilde{y}) S(U(\cdot ~\vert~ \tilde{y}),\theta) \right], \quad w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y}),$$`
-]
 
 will be equal to the true posterior for the data `\(y\)`, i.e. `\(U^{\star}(\cdot ~\vert~ y) = \Pi(\cdot ~\vert~ y)\)`.
-
+]
 
 ---
 class: list-space
@@ -342,7 +343,7 @@ Let `\(\mathcal{K}\)` be a family of non-negative kernels, `\(Q\)` be a probabil
 
 --
 
-**Approximate model calibration:** `\(\mathcal{K} = \{f_{\#}\hat\Pi(\cdot~\vert~\cdot):f \in \mathcal{F}\}\)`
+**For this work we use:** `\(\mathcal{K} = \{f_{\#}\hat\Pi(\cdot~\vert~\cdot):f \in \mathcal{F}\}\)`
 
 --
 
@@ -383,7 +384,7 @@ where `\(q_{1-\alpha}\)` is `\((1-\alpha)\)` quantile of raw weights.
 ---
 class: list-space
 
-## What's the transformation?
+## Transformations for correcting approximate models
 
 --
 .content-box-blue[
