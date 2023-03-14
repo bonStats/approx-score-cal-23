@@ -439,7 +439,16 @@ class: list-space
 
 ## What's the transformation?
 
+--
+.content-box-blue[
 **Moment-correcting transformation**
+
+$$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$
+]
+
+where $\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)$ for $y \in \mathsf{Y}$.
+
+$L$ is a lower triangular matrix with positive elements on diagonal.
 
 ---
 
@@ -564,7 +573,10 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ---
 class: list-space
 
-## Limitations
+## Caveats/Limitations
+
+--
+- Some regularisation useful for dependent-multivariate transformations of posteriors
 
 --
 - Optimal transformation and calibration checks are *concentrated* on $\bar\Pi$ because of finite sample approximation

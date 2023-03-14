@@ -377,6 +377,21 @@ where `\(q_{1-\alpha}\)` is `\((1-\alpha)\)` quantile of raw weights.
 
 ]
 
+---
+class: list-space
+
+## What's the transformation?
+
+--
+.content-box-blue[
+**Moment-correcting transformation**
+
+`$$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$`
+]
+
+where `\(\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)\)` for `\(y \in \mathsf{Y}\)`.
+
+`\(L\)` is a lower triangular matrix with positive elements on diagonal.
 
 ---
 
@@ -569,6 +584,20 @@ where `\(q_{1-\alpha}\)` is `\((1-\alpha)\)` quantile of raw weights.
 .pull-right[
 ![](index_files/figure-html/ou-lv-calcheck-1.png)&lt;!-- --&gt;
 ]
+
+---
+class: list-space
+
+## Caveats/Limitations
+
+--
+- Some regularisation useful for dependent-multivariate transformations of posteriors
+
+--
+- Optimal transformation and calibration checks are *concentrated* on `\(\bar\Pi\)` because of finite sample approximation
+
+--
+- Even more so when manipulating the weights of the method
 
 ---
 class: list-space
