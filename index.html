@@ -309,7 +309,7 @@ for `\(\rho \in (0,1)\)`.
 ---
 class: list-space
 
-## Theoretical contribution: 
+## Theoretical contribution
 
 - Strictly proper score function `\(S\)` 
 - Importance distribution `\(\bar\Pi\)` on `\((\Theta,\vartheta)\)` with `\(\Pi \ll \bar\Pi\)` with density `\(\bar\pi\)`
@@ -337,7 +337,7 @@ class: list-space
 .content-box-blue[
 **Sufficiently rich kernel family**
 
-Let `\(\mathcal{K}\)` be a family of non-negative kernels, `\(Q\)` be a probability measure and `\(\Pi(\cdot ~\vert~\tilde{y})\)` be the true posterior at `\(\tilde{y}\)`. We say `\(\mathcal{K}\)` is sufficiently rich with respect to `\(Q\)` if `\(\Pi(\cdot ~\vert~\tilde{y}) \in \mathcal{K}\)` for all `\(\tilde{y}\)` in the support of `\(Q\)`.
+Let `\(\mathcal{K}\)` be a family of non-negative kernels, `\(Q\)` be a probability measure on `\((\mathsf{Y},\mathcal{Y})\)` and `\(\Pi(\cdot ~\vert~\tilde{y})\)` be the true posterior at `\(\tilde{y}\)`. We say `\(\mathcal{K}\)` is sufficiently rich with respect to `\(Q\)` if `\(\Pi(\cdot ~\vert~\tilde{y}) \in \mathcal{K}\)` for all `\(\tilde{y}\)` in the support of `\(Q\)`.
 ]
 
 --
@@ -357,6 +357,25 @@ Let `\(Q\)` be a measure on `\((\mathsf{Y},\mathcal{Y})\)` with support at `\(y\
 class: list-space
 
 ## What about the weights?
+
+`$$w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y})$$`
+
+--
+- New flexibility from stabilising function `\(v(\tilde{y})\)`
+
+--
+- Hard to find `\(v(\tilde{y})\)` such that `\(w(\theta, \tilde{y}) \approx 1\)`
+
+--
+
+.content-box-blue[
+**Clip the weights**
+
+`$$\hat{w}(\theta, \tilde{y}) = \min\{w(\theta, \tilde{y}), q_{1-\alpha}\}$$`
+
+where `\(q_{1-\alpha}\)` is `\((1-\alpha)\)` quantile of raw weights.
+
+]
 
 
 ---
@@ -390,21 +409,21 @@ class: list-space
    &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0.5) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=1) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
@@ -442,21 +461,21 @@ class: list-space
    &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 4.83 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.24 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0.5) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 5.08 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.41 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.42 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 81 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=1) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 5.13 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1.45 &lt;/td&gt;
@@ -498,17 +517,17 @@ class: list-space
    &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.41 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (0.5) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=0.5) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Adjust-post (1) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Adjust-post (α=1) &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
   &lt;/tr&gt;
@@ -554,8 +573,10 @@ class: list-space
 ---
 class: list-space
 
-## Conclusions
+## Future work
 
+- Learn `\(v(\tilde{y})\)` such that `\(w(\theta, \tilde{y}) \approx 1\)` for small sample sizes
+- Pareto-smoothed weights
 
 
 --

@@ -415,6 +415,25 @@ class: list-space
 
 ## What about the weights?
 
+$$w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y})$$
+
+--
+- New flexibility from stabilising function $v(\tilde{y})$
+
+--
+- Hard to find $v(\tilde{y})$ such that $w(\theta, \tilde{y}) \approx 1$
+
+--
+
+.content-box-blue[
+**Clip the weights**
+
+$$\hat{w}(\theta, \tilde{y}) = \min\{w(\theta, \tilde{y}), q_{1-\alpha}\}$$
+
+where $q_{1-\alpha}$ is $(1-\alpha)$ quantile of raw weights.
+
+]
+
 
 ---
 
@@ -435,9 +454,9 @@ $\mu$
 mu_dat_ou1 <- tibble::tribble(
   ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
       "Approx-post", 1.54, 1.21, 0.22, 0,
-      "Adjust-post (0)", 0.12, 0.15, 0.20, 64,
-      "Adjust-post (0.5)", 0.12, 0.15, 0.23, 81,
-      "Adjust-post (1)", 0.12, 0.15, 0.23, 82,
+      "Adjust-post (α=0)", 0.12, 0.15, 0.20, 64,
+      "Adjust-post (α=0.5)", 0.12, 0.15, 0.23, 81,
+      "Adjust-post (α=1)", 0.12, 0.15, 0.23, 82,
       "True-post", 0.12, -0.01, 0.26, 94
   )
 knitr::kable(mu_dat_ou1, format = "html")
@@ -450,9 +469,9 @@ $D$
 D_dat_ou1 <- tibble::tribble(
   ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
       "Approx-post", 4.73, 0.18, 1.46, 85,
-      "Adjust-post (0)", 4.83, 0.28, 1.24, 72,
-      "Adjust-post (0.5)", 5.08, 0.41, 1.42, 81,
-      "Adjust-post (1)", 5.13, 0.42, 1.45, 83,
+      "Adjust-post (α=0)", 4.83, 0.28, 1.24, 72,
+      "Adjust-post (α=0.5)", 5.08, 0.41, 1.42, 81,
+      "Adjust-post (α=1)", 5.13, 0.42, 1.45, 83,
       "True-post", 5.00, 0.37, 1.48, 85
   )
 knitr::kable(D_dat_ou1, format = "html")
@@ -477,9 +496,9 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 corr_tab <- tribble(
   ~Method, ~Mean, ~`St. Dev.`,
 "Approx-post", 0.00, 0.02,
-"Adjust-post (0)", 0.18, 0.41,
-"Adjust-post (0.5)", 0.37, 0.16,
-"Adjust-post (1)", 0.37, 0.15,
+"Adjust-post (α=0)", 0.18, 0.41,
+"Adjust-post (α=0.5)", 0.37, 0.16,
+"Adjust-post (α=1)", 0.37, 0.15,
 "True-post", 0.42, 0.06
 )
 knitr::kable(corr_tab, format = "html")
@@ -539,8 +558,10 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ---
 class: list-space
 
-## Conclusions
+## Future work
 
+- Learn $v(\tilde{y})$ such that $w(\theta, \tilde{y}) \approx 1$ for small sample sizes
+- Pareto-smoothed weights
 
 
 --
