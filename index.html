@@ -78,7 +78,7 @@ Paper
 ---
 class: list-space
 
-## Motivation: Rascal likelihoods
+## Motivation: "Little rascal" likelihoods
 
 .pull-left[
 Current methods for **intractable** likelihoods:
@@ -98,7 +98,7 @@ Current methods for **intractable** likelihoods:
 
 .center[
 .content-box-red[
-But we have approximate likelihoods/models available...
+But we have **approximate** likelihoods/models available...
 ]]
 
 ---
@@ -192,7 +192,7 @@ class: list-space
 
 ## Proper scoring rules
 
-**Scoring rule** `\(S(U,x)\)` compares probabilistic ''forecast'' `\(U\)` for the ''true'' value `\(x\)`.
+**Scoring rule** `\(S(U,x)\)` compares probabilistic *forecast* `\(U\)` for the *ground truth* `\(x\)`.
 
 Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probability measure.
 
@@ -211,6 +211,8 @@ Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probabilit
 `$$\underset{f \in \mathcal{F}}{\arg\max}~\mathbb{E}_{\theta\sim\Pi}\mathbb{E}_{\tilde{y}\sim P(\cdot\vert\theta) }S(f_{\#}\hat\Pi(~\cdot~\vert~\tilde{y}), \theta)$$`
 ]
 
+`$$~$$`
+
 
 ---
 class: list-space
@@ -218,7 +220,7 @@ class: list-space
 ## Bayesian Score Calibration
 
 1. **Generate**
-  - Sample `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` `\(M\)` times
+  - Sample `\(M\)` replicates of `\((\bar\theta, \tilde{y}, \hat{\theta}_{1:N})\)` *in parallel*
   - Ground truth, simulated data, posterior
 --
 
@@ -234,7 +236,7 @@ class: list-space
 ---
 class: list-space
 
-## Generate
+## 1. Generate
 
 .content-box-blue[
 $$
@@ -254,7 +256,7 @@ $$
 ---
 class: list-space
 
-## Optimise
+## 2. Optimise
 
 .content-box-blue[
 `$$f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]$$`
@@ -274,38 +276,81 @@ class: list-space
 ]
 
 `$$~$$`
+&lt;br&gt;
+`$$~$$`
 
 ---
 class: list-space
 
-## Apply
+## 3. Apply
 &lt;!-- show theory then samples --&gt;
 
 .content-box-blue[
-**Adjusted posterior** for observed data
+**Adjusted posterior** for observed data `\(y\)`
 
 `$$\theta = f^{\star}(\hat\theta)\quad\text{where}~ \hat\theta \sim \hat\Pi(\cdot \vert y)$$`
 ]
 
+--
+
+.content-box-red[
 **Calibration diagnostic**
 
-`$$\text{CC}(\rho) = \Pr\left[\bar\theta \in \text{Cr}(f_{\#}^{\star}\hat\Pi(\cdot ~\vert~ \tilde{y}),\rho)\right],\quad\text{where}~\tilde{y} \sim P( \cdot ~\vert~ \bar\theta)$$`
-for `\(\rho \in (0,1]\)`.
+`$$\text{CC}(\rho) = \Pr\left\{\bar\theta \in \text{Cr}(f_{\#}^{\star}\hat\Pi(\cdot ~\vert~ \tilde{y}),\rho)\right\},\quad\text{where}~\tilde{y} \sim P( \cdot ~\vert~\bar\theta)$$`
+
+for `\(\rho \in (0,1)\)`.
+
+]
 
 --
 
-We can approximate this with the (ground truth, approximate posterior) pairs we have already generated.
----
-class: list-space
-
-## Overview
-
-Schematic
+...with **negligible cost**: (ground truth, approximate posterior) pairs already generated.
 
 ---
 class: list-space
 
-## Theoretical justification
+## Theoretical contribution: 
+
+- Strictly proper score function `\(S\)` 
+- Importance distribution `\(\bar\Pi\)` on `\((\Theta,\vartheta)\)` with `\(\Pi \ll \bar\Pi\)` with density `\(\bar\pi\)`
+- Stability function `\(v:\mathsf{Y} \rightarrow [0,\infty)\)`, measurable under `\(P\)` on `\((\mathsf{Y}, \mathcal{Y})\)`
+- `\(Q\)` defined by change of measure `\(Q(\text{d} \tilde{y}) \propto P(\text{d} \tilde{y})v(\tilde{y})\)`
+
+--
+
+
+**Theorem 1**:
+If `\(Q\)` has *sufficient support* about `\(y\)` and the family of kernels `\(\mathcal{K}\)` is *sufficiently rich*, then the Markov kernel `\(U^{\star}(\cdot~\vert~\cdot)\)`, defined as
+
+.content-box-blue[
+`$$U^{\star}(\cdot~\vert~\cdot) \equiv \underset{U(\cdot~\vert~\cdot) \in \mathcal{K}}{\arg\max}~\mathbb{E}_{\theta \sim \bar\Pi} \mathbb{E}_{\tilde{y} \sim P(\cdot ~\vert~ \theta)}\left[w(\theta, \tilde{y}) S(U(\cdot ~\vert~ \tilde{y}),\theta) \right], \quad w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y}),$$`
+]
+
+will be equal to the true posterior for the data `\(y\)`, i.e. `\(U^{\star}(\cdot ~\vert~ y) = \Pi(\cdot ~\vert~ y)\)`.
+
+
+---
+class: list-space
+
+## Theoretical contribution: Key assumptions
+
+.content-box-blue[
+**Sufficiently rich kernel family**
+
+Let `\(\mathcal{K}\)` be a family of non-negative kernels, `\(Q\)` be a probability measure and `\(\Pi(\cdot ~\vert~\tilde{y})\)` be the true posterior at `\(\tilde{y}\)`. We say `\(\mathcal{K}\)` is sufficiently rich with respect to `\(Q\)` if `\(\Pi(\cdot ~\vert~\tilde{y}) \in \mathcal{K}\)` for all `\(\tilde{y}\)` in the support of `\(Q\)`.
+]
+
+--
+
+**Approximate model calibration:** `\(\mathcal{K} = \{f_{\#}\hat\Pi(\cdot~\vert~\cdot):f \in \mathcal{F}\}\)`
+
+--
+
+.content-box-red[
+**Sufficient support about the data**
+
+Let `\(Q\)` be a measure on `\((\mathsf{Y},\mathcal{Y})\)` with support at `\(y\)`. We say that `\(Q\)` has sufficient support about `\(y\)` if there exists a neighborhood `\(B_y\)`, centered at `\(y\)`, such that `\(B_y\)` has positive probability under `\(Q\)`, that is `\(Q(B_y) &gt; 0\)`.  
+]
 
 
 ---
