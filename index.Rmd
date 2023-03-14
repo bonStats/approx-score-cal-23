@@ -461,7 +461,10 @@ $$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$
 
 ## Example 1: OU Process (limiting approximation)
 
+.content-box-blue[
 $$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$
+]
+
 --
 
 Observe final observation at time $T$ (replicated 100 times):
@@ -475,7 +478,7 @@ where $D = \frac{\sigma^2}{2}$. Fix $\gamma = 2$, $T=1$, $x_0 = 10$
 
 
 --
-Infer $\mu$ and $D$ with approximate model
+Infer $\mu$ and $D$ with **approximate likelihood** based on
 
 $$X_\infty  \sim \mathcal{N}\left(\mu, \frac{D}{\gamma}\right)$$
 ---
@@ -521,6 +524,25 @@ D_dat_ou1 <- tibble::tribble(
 knitr::kable(D_dat_ou1, format = "html")
 ```
 ]
+
+<br><br>
+Estimated from independent replications of the method.
+
+---
+
+## Example 2: Bivariate OU Process (VI approximation)
+
+.content-box-blue[
+$$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$
+$$\text{d}Y_t = \gamma (\mu - Y_t) \text{d}t + \sigma\text{d}W_t$$
+$$Z_t = \rho X_t + (1-\rho)Y_t$$
+]
+
+Model $(X_t,Z_t)$ with setup as in the univariate case, $(x_0,z_0)=(5,5)$.
+
+--
+
+Mean-field **variational approximation**
 
 ---
 
