@@ -670,7 +670,7 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ```
 ]
 
-$M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), \sigma_1=\sigma_2=0.1$
+$M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), \sigma_1=\sigma_2=0.1$ with observation times $t \in \{0, 0.1, 0.2, \ldots, 9.9, 10\}$
 
 ---
 class: list-space
