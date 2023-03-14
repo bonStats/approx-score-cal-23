@@ -389,9 +389,13 @@ class: list-space
 `$$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$`
 ]
 
-where `\(\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)\)` for `\(y \in \mathsf{Y}\)`.
+--
+&lt;br&gt;
+- Mean `\(\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)\)` for `\(y \in \mathsf{Y}\)`.
 
-`\(L\)` is a lower triangular matrix with positive elements on diagonal.
+--
+&lt;br&gt;&lt;br&gt;
+- `\(L\)` is a lower triangular matrix with positive elements on diagonal.
 
 ---
 
@@ -412,7 +416,7 @@ where `\(\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert
    &lt;th style="text-align:right;"&gt; MSE &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; Bias &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; St. Dev &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Coverage.(90%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Coverage (90%) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
@@ -464,7 +468,7 @@ where `\(\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert
    &lt;th style="text-align:right;"&gt; MSE &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; Bias &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; St. Dev &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Coverage.(90%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Coverage (90%) &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
@@ -594,11 +598,14 @@ class: list-space
 - Some regularisation useful for dependent-multivariate transformations of posteriors
 
 --
-- Optimal transformation and calibration checks are *concentrated* on `\(\bar\Pi\)` because of finite sample approximation
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+- Results are *targeted* towards `\(\bar\Pi\)` 
+  - finite sample approximation
 
 --
-- Even more so when manipulating the weights of the method
-
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+- Even more *targeted* when manipulating the weights
+  - deficiency of moment-correcting transformation with approximate posterior
 ---
 class: list-space
 
@@ -614,17 +621,16 @@ class: list-space
 - Try with Pareto-smoothed weights (Vehtari et al, 2022)
 
 --
-- Use flexibility of `\(v(\tilde{y})\)` to obtain `\(w(\theta, \tilde{y}) \approx 1\)` apply to control weights in a SNP-style or "...GNN via Scoring Rule Minimization" (Pacchiardi &amp; Dutta 2022)
+- Use flexibility of `\(v(\tilde{y})\)` to obtain `\(w(\theta, \tilde{y}) \approx 1\)` apply to control weights in a SNP-style algorithm or "...GNN via Scoring Rule Minimization" (Pacchiardi &amp; Dutta, 2022)
 
 
-
---
-- arXiv: https://arxiv.org/abs/2211.05357
 
 ---
 class: inverse, center, middle, hide-logo
 
 ## Thank you for listening 🏂
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+https://arxiv.org/abs/2211.05357
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -446,9 +446,13 @@ class: list-space
 $$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$
 ]
 
-where $\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)$ for $y \in \mathsf{Y}$.
+--
+<br>
+- Mean $\hat{\mu}(y) = \mathbb{E}(\theta),\quad \theta \sim \hat\Pi(\cdot~\vert~y)$ for $y \in \mathsf{Y}$.
 
-$L$ is a lower triangular matrix with positive elements on diagonal.
+--
+<br><br>
+- $L$ is a lower triangular matrix with positive elements on diagonal.
 
 ---
 
@@ -467,7 +471,7 @@ magick::image_read_pdf("imgs/ou-process-plot-uni-1.pdf",
 $\mu$
 ```{r, ou-mu-table-1, echo = F}
 mu_dat_ou1 <- tibble::tribble(
-  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
+  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage (90%)`,
       "Approx-post", 1.54, 1.21, 0.22, 0,
       "Adjust-post (α=0)", 0.12, 0.15, 0.20, 64,
       "Adjust-post (α=0.5)", 0.12, 0.15, 0.23, 81,
@@ -482,7 +486,7 @@ knitr::kable(mu_dat_ou1, format = "html")
 $D$
 ```{r, ou-D-table-1, echo = F}
 D_dat_ou1 <- tibble::tribble(
-  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage.(90%)`,
+  ~`Method`, ~`MSE`, ~`Bias`, ~`St. Dev`, ~`Coverage (90%)`,
       "Approx-post", 4.73, 0.18, 1.46, 85,
       "Adjust-post (α=0)", 4.83, 0.28, 1.24, 72,
       "Adjust-post (α=0.5)", 5.08, 0.41, 1.42, 81,
@@ -579,11 +583,14 @@ class: list-space
 - Some regularisation useful for dependent-multivariate transformations of posteriors
 
 --
-- Optimal transformation and calibration checks are *concentrated* on $\bar\Pi$ because of finite sample approximation
+<br><br><br>
+- Results are *targeted* towards $\bar\Pi$ 
+  - finite sample approximation
 
 --
-- Even more so when manipulating the weights of the method
-
+<br><br><br>
+- Even more *targeted* when manipulating the weights
+  - deficiency of moment-correcting transformation with approximate posterior
 ---
 class: list-space
 
@@ -599,14 +606,13 @@ class: list-space
 - Try with Pareto-smoothed weights (Vehtari et al, 2022)
 
 --
-- Use flexibility of $v(\tilde{y})$ to obtain $w(\theta, \tilde{y}) \approx 1$ apply to control weights in a SNP-style or "...GNN via Scoring Rule Minimization" (Pacchiardi & Dutta 2022)
+- Use flexibility of $v(\tilde{y})$ to obtain $w(\theta, \tilde{y}) \approx 1$ apply to control weights in a SNP-style algorithm or "...GNN via Scoring Rule Minimization" (Pacchiardi & Dutta, 2022)
 
 
-
---
-- arXiv: https://arxiv.org/abs/2211.05357
 
 ---
 class: inverse, center, middle, hide-logo
 
 ## Thank you for listening `r emo::ji("snowboarder")`
+<br><br><br><br>
+https://arxiv.org/abs/2211.05357
