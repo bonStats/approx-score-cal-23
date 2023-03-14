@@ -367,6 +367,9 @@ class: list-space
 - Hard to find `\(v(\tilde{y})\)` such that `\(w(\theta, \tilde{y}) \approx 1\)`
 
 --
+- Harder to show finite variance (?)
+
+--
 
 .content-box-blue[
 **Clip the weights**
@@ -401,8 +404,30 @@ class: list-space
 
 ## Example 1: OU Process (limiting approximation)
 
+`$$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$`
+--
+
+Observe final observation at time `\(T\)` (replicated 100 times):
+
+--
+
+`$$X_T \sim \mathcal{N}\left(  \mu + (x_0 - \mu)e^{-\gamma T}, \frac{D}{\gamma}(1- e^{-2\gamma T}) \right)$$`
+
+--
+where `\(D = \frac{\sigma^2}{2}\)`. Fix `\(\gamma = 2\)`, `\(T=1\)`, `\(x_0 = 10\)`
+
+
+--
+Infer `\(\mu\)` and `\(D\)` with approximate model
+
+`$$X_\infty  \sim \mathcal{N}\left(\mu, \frac{D}{\gamma}\right)$$`
+---
+
+## Example 1: OU Process (limiting approximation)
+
 ![](index_files/figure-html/ou-limit-dens-1.png)&lt;!-- --&gt;
 
+`\(M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)\)`
 ---
 
 ## Example 1: OU Process (limiting approximation)
@@ -559,6 +584,8 @@ class: list-space
 &lt;/table&gt;
 ]
 
+`\(M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)\)`
+
 ---
 
 ## Example 2: Bivariate OU Process (VI approximation)
@@ -577,6 +604,8 @@ class: list-space
 ![](index_files/figure-html/ou-whittle-calcheck-1.png)&lt;!-- --&gt;
 ]
 
+`\(M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), L = \text{Diagonal}\)`
+
 ---
 
 ## Example 4: Lotka-Volterra SDE
@@ -588,6 +617,8 @@ class: list-space
 .pull-right[
 ![](index_files/figure-html/ou-lv-calcheck-1.png)&lt;!-- --&gt;
 ]
+
+`\(M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)\)`
 
 ---
 class: list-space
@@ -605,7 +636,16 @@ class: list-space
 --
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 - Even more *targeted* when manipulating the weights
-  - deficiency of moment-correcting transformation with approximate posterior
+  - insufficiency of moment-correcting transformation with approximate posterior
+
+
+---
+class: list-space
+
+## Justification of unit weights
+
+When we take `\(\alpha =1\)` 
+
 ---
 class: list-space
 

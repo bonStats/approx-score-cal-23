@@ -424,6 +424,9 @@ $$w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y})$$
 - Hard to find $v(\tilde{y})$ such that $w(\theta, \tilde{y}) \approx 1$
 
 --
+- Harder to show finite variance (?)
+
+--
 
 .content-box-blue[
 **Clip the weights**
@@ -458,11 +461,33 @@ $$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$
 
 ## Example 1: OU Process (limiting approximation)
 
+$$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$
+--
+
+Observe final observation at time $T$ (replicated 100 times):
+
+--
+
+$$X_T \sim \mathcal{N}\left(  \mu + (x_0 - \mu)e^{-\gamma T}, \frac{D}{\gamma}(1- e^{-2\gamma T}) \right)$$
+
+--
+where $D = \frac{\sigma^2}{2}$. Fix $\gamma = 2$, $T=1$, $x_0 = 10$
+
+
+--
+Infer $\mu$ and $D$ with approximate model
+
+$$X_\infty  \sim \mathcal{N}\left(\mu, \frac{D}{\gamma}\right)$$
+---
+
+## Example 1: OU Process (limiting approximation)
+
 ```{r, ou-limit-dens, echo = F}
 magick::image_read_pdf("imgs/ou-process-plot-uni-1.pdf",
                        pages = 1)
 ```
 
+$M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)$
 ---
 
 ## Example 1: OU Process (limiting approximation)
@@ -524,6 +549,8 @@ knitr::kable(corr_tab, format = "html")
 ```
 ]
 
+$M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)$
+
 ---
 
 ## Example 2: Bivariate OU Process (VI approximation)
@@ -554,6 +581,8 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ```
 ]
 
+$M = 100, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y), L = \text{Diagonal}$
+
 ---
 
 ## Example 4: Lotka-Volterra SDE
@@ -574,6 +603,8 @@ magick::image_scale(out, magick::geometry_size_percent(height = 30, width = 30))
 ```
 ]
 
+$M = 200, \beta = 1, \bar\Pi = f_{\#}^{(0,2)}\hat\Pi(\cdot~\vert~y)$
+
 ---
 class: list-space
 
@@ -590,7 +621,16 @@ class: list-space
 --
 <br><br><br>
 - Even more *targeted* when manipulating the weights
-  - deficiency of moment-correcting transformation with approximate posterior
+  - insufficiency of moment-correcting transformation with approximate posterior
+
+
+---
+class: list-space
+
+## Justification of unit weights
+
+When we take $\alpha =1$ 
+
 ---
 class: list-space
 
