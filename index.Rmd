@@ -3,7 +3,7 @@ title: "Bayesian score calibration for approximate models"
 subtitle: ""
 author: "Joshua J Bon"
 institute: "Queensland University of Technology"
-date: "Without Exact Likelihoods '23"
+date: "Newcastle University, March '23"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "hygge", "bon-qut-campus-title.css"] #css: ["default", "default-fonts", "hygge"] #
