@@ -683,12 +683,18 @@ class: list-space
 --
 <br><br><br>
 - Results are *targeted* towards $\bar\Pi$ 
-  - finite sample approximation
+  - theoretically corrected by IS weights
+  - but we have a finite sample approximation
 
 --
 <br><br><br>
 - Even more *targeted* when manipulating the weights
-  - insufficiency of moment-correcting transformation with approximate posterior
+
+--
+<br><br><br>
+- Trade-off between: 
+  - insufficiency of moment-correcting transformation + approximate posterior
+  - targeting high-probability regions of $\bar\Pi$ 
 
 
 ---
@@ -757,7 +763,7 @@ class: list-space
 ---
 class: inverse, center, middle, hide-logo
 
-## Thank you for listening `r emo::ji("snowboarder")`
+## Thank you for listening `r emo::ji("castle")`
 <br><br><br>
 https://arxiv.org/abs/2211.05357
 <br><br> @bonstats 
