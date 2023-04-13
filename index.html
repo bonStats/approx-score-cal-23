@@ -70,7 +70,7 @@ Paper
 
 .pull-right[
 
-&lt;img src="imgs/snow-bike.JPG" height="550" /&gt;
+&lt;img src="imgs/delft.jpg" height="550" /&gt;
 
 
 ]
@@ -143,7 +143,7 @@ class: list-space
 --
 
 .pull-left[
-.content-box-blue[
+.content-box-purple[
 **Simulate the posterior fitting process**
 &lt;br&gt;
 1. Draw from prior `\(\bar\theta_m \sim \Pi\)`
@@ -196,7 +196,7 @@ class: list-space
 
 Define `\(S(U,V) = \mathbb{E}_{x\sim V} S(U,x)\)`, where `\(V\)` is a probability measure.
 
-.content-box-blue[
+.content-box-purple[
 `\(S(U, \cdot)\)` is **strictly proper** if 
 - `\(S(U,U) \geq S(U, V)\)` for all `\(V\)` in some family, and
 - equality holds iff `\(U = V\)`.
@@ -238,7 +238,7 @@ class: list-space
 
 ## 1. Generate
 
-.content-box-blue[
+.content-box-purple[
 $$
 \bar\theta^{(m)} \sim \bar\Pi \quad \longrightarrow \quad \tilde{y}^{(m)} \sim P(
 \:\cdot\;\vert~\bar\theta^{(m)} ) \quad \longrightarrow \quad \hat\theta^{(m)}_{1:N} \sim \hat{\Pi}(\;\cdot\;\vert \tilde{y}^{(m)})
@@ -258,7 +258,7 @@ class: list-space
 
 ## 2. Optimise
 
-.content-box-blue[
+.content-box-purple[
 `$$f^{\star} = \underset{f \in \mathcal{F}}{\arg\max}~ \mathbb{E}\left[w(\bar\theta, \tilde{y})S\left(f_{\#}\hat\Pi(\:\cdot\:\vert\tilde{y}), \bar\theta\right) \right]$$`
 ]
 
@@ -285,7 +285,7 @@ class: list-space
 ## 3. Apply
 &lt;!-- show theory then samples --&gt;
 
-.content-box-blue[
+.content-box-purple[
 **Adjusted posterior** for observed data `\(y\)`
 
 `$$\theta = f^{\star}(\hat\theta)\quad\text{where}~ \hat\theta \sim \hat\Pi(\cdot \vert y)$$`
@@ -320,7 +320,7 @@ class: list-space
 
 
 **Theorem 1**:
-.content-box-blue[
+.content-box-purple[
 If `\(Q\)` has *sufficient support* about `\(y\)` and `\(\mathcal{K}\)` is *sufficiently rich*
 
 then the Markov kernel `\(U^{\star}(\cdot~\vert~\cdot)\)`, defined as
@@ -335,7 +335,7 @@ class: list-space
 
 ## Theoretical contribution: Key assumptions
 
-.content-box-blue[
+.content-box-purple[
 **Sufficiently rich kernel family**
 
 Let `\(\mathcal{K}\)` be a family of non-negative kernels, `\(Q\)` be a probability measure on `\((\mathsf{Y},\mathcal{Y})\)` and `\(\Pi(\cdot ~\vert~\tilde{y})\)` be the true posterior at `\(\tilde{y}\)`. We say `\(\mathcal{K}\)` is sufficiently rich with respect to `\(Q\)` if `\(\Pi(\cdot ~\vert~\tilde{y}) \in \mathcal{K}\)` for all `\(\tilde{y}\)` in the support of `\(Q\)`.
@@ -372,7 +372,7 @@ class: list-space
 
 --
 
-.content-box-blue[
+.content-box-purple[
 **Clip the weights**
 
 `$$\hat{w}(\theta, \tilde{y}) = \min\{w(\theta, \tilde{y}), q_{1-\alpha}\}$$`
@@ -387,7 +387,7 @@ class: list-space
 ## Transformations for correcting approximate models
 
 --
-.content-box-blue[
+.content-box-purple[
 **Moment-correcting transformation**
 
 `$$f(x) = L[x - \hat{\mu}(y)] + \hat{\mu}(y)+ b$$`
@@ -405,7 +405,7 @@ class: list-space
 
 ## Example 1: OU Process (limiting approximation)
 
-.content-box-blue[
+.content-box-purple[
 `$$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$`
 ]
 
@@ -547,7 +547,7 @@ Estimated from independent replications of the method.
 
 ## Example 2: Bivariate OU Process (VI approximation)
 
-.content-box-blue[
+.content-box-purple[
 `$$\text{d}X_t = \gamma (\mu - X_t) \text{d}t + \sigma\text{d}W_t$$`
 `$$\text{d}Y_t = \gamma (\mu - Y_t) \text{d}t + \sigma\text{d}W_t$$`
 `$$Z_t = \rho X_t + (1-\rho)Y_t$$`
@@ -621,7 +621,7 @@ Mean-field **variational approximation**
 
 Fractional ARIMA time series 
 
-.content-box-blue[
+.content-box-purple[
 
 **ARFIMA**
 
@@ -655,7 +655,7 @@ Whittle likelihood defines **approximate posterior**.
 
 ## Example 4: Lotka-Volterra SDE
 
-.content-box-blue[
+.content-box-purple[
 **LV-SDE**
 
 `$$\text{d} X_{t} = (\beta_1 X_{t} - \beta_2 X_{t} Y_{t} ) \text{d} t+ \sigma_1 \text{d} B_{t}^{1}$$`
@@ -720,7 +720,7 @@ When we take `\(\alpha =1\)`, `\(\hat{w} = 1\)`!
 
 --
 
-.content-box-blue[
+.content-box-purple[
 **Theorem 2**
 
 Let `\(g(x) = \bar \pi(x) / \pi(x)\)` for `\(x \in \Theta\)`. 
@@ -742,7 +742,7 @@ And a CLT for unit weights appears in our paper.
 
 Theorem 2 is possible because of the stability function justified by Theorem 1.
 
-.content-box-blue[
+.content-box-purple[
 `$$w(\theta, \tilde{y}) = \frac{\pi(\theta)}{\bar\pi(\theta)} v(\tilde{y})$$`
 ]
 
