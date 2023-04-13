@@ -3,7 +3,7 @@ title: "Bayesian score calibration for approximate models"
 subtitle: ""
 author: "Joshua J Bon"
 institute: "Queensland University of Technology"
-date: "Newcastle University, March '23"
+date: "TU Delft, April '23"
 output:
   xaringan::moon_reader:
     css: ["default", "default-fonts", "hygge", "bon-qut-campus-title.css"] #css: ["default", "default-fonts", "hygge"] #
@@ -763,7 +763,7 @@ class: list-space
 ---
 class: inverse, center, middle, hide-logo
 
-## Thank you for listening `r emo::ji("castle")`
+## Thank you for listening `r emo::ji("bike")`
 <br><br><br>
 https://arxiv.org/abs/2211.05357
 <br><br> @bonstats 
