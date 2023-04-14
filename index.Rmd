@@ -53,6 +53,9 @@ attach_name <- function(string, name){
 
 knitr::opts_chunk$set(cache = T)
 
+# NOTES:
+# - could change illustration to better match graphic
+# - need to emphasise M = 100 or 200
 
 ```
 <style>
@@ -164,7 +167,7 @@ class: list-space
 ---
 class: list-space
 
-## Motivation
+## Illustration: bias correction
 
 - Fast approximate model $\hat\pi(\theta~\vert~y)$ known to be biased, data simulation is expensive
 - Correct the bias (average over $\theta$) using simulation
@@ -174,13 +177,11 @@ class: list-space
 
 .pull-left[
 .content-box-purple[
-**Simulate the posterior fitting process**
+**Simulate the approximate posterior fitting process**
 <br>
-1. Draw from prior $\bar\theta_m \sim \Pi$
-2. Draw new data $\tilde{y}_m \sim P(~\cdot~\vert~\theta_m)$
-3. Sample posterior $(\theta_i \vert \tilde{y}_m) \sim \hat{\pi}(~\cdot~\vert~\tilde{y}_m)$
-<br>
-for $m \in [1:M]$ and $i \in [1:N]$
+1. Draw from prior $\bar\theta_m \sim \Pi(\cdot)$
+2. Draw new data $\tilde{y}_m \sim P(~\cdot~\vert~\bar\theta_m)$
+3. Sample posterior $\theta_{m,i} \sim \hat{\Pi}(~\cdot~\vert~\tilde{y}_m)$
 ]]
 
 --
@@ -188,9 +189,9 @@ for $m \in [1:M]$ and $i \in [1:N]$
 .pull-right[
 .content-box-red[
 **Bias correction**
-<br><br>
-1. Using pairs $(\theta_i, \{\theta_j\}_{i=1}^{N})$ estimate average bias $$\text{bias} = \mathbb{E}[\mathbb{E}(\theta \vert \tilde{y}_m) - \bar\theta_m]$$
-2. Correct by transformation $$\theta^\prime = \theta - \text{bias}$$
+
+1. Estimate average bias $$\text{bias} = \sum_{m=1}^{M}\sum_{i=1}^{N}\left(\theta_{m,i} - \bar\theta_m \right)$$
+2. Correction $\theta \sim \hat{\Pi}(~\cdot~\vert~y)$  $$\theta^\prime = \theta - \text{bias}$$
 ]
 ]
 
@@ -259,17 +260,6 @@ $S(U, \cdot)$ is **strictly proper** if
 - $S(U,U) \geq S(U, V)$ for all $V$ in some family, and
 - equality holds iff $U = V$.
 ]
-
---
-
-.content-box-red[ 
-
-**We use a proper scoring rule:**
-
-$$\underset{f \in \mathcal{F}}{\arg\max}~\mathbb{E}_{\theta\sim\Pi}\mathbb{E}_{\tilde{y}\sim P(\cdot\vert\theta) }S(f_{\#}\hat\Pi(~\cdot~\vert~\tilde{y}), \theta)$$
-]
-
-$$~$$
 
 
 ---
@@ -379,7 +369,7 @@ class: list-space
 
 **Theorem 1**:
 .content-box-purple[
-If $Q$ has *sufficient support* about $y$ and $\mathcal{K}$ is *sufficiently rich*
+If $Q$ has *support* about $y$ and $\mathcal{K}$ is *sufficiently rich*
 
 then the Markov kernel $U^{\star}(\cdot~\vert~\cdot)$, defined as
 
@@ -406,9 +396,9 @@ Let $\mathcal{K}$ be a family of non-negative kernels, $Q$ be a probability meas
 --
 
 .content-box-red[
-**Sufficient support about the data**
+**Support about the data**
 
-Let $Q$ be a measure on $(\mathsf{Y},\mathcal{Y})$ with support at $y$. We say that $Q$ has sufficient support about $y$ if there exists a neighborhood $B_y$, centered at $y$, such that $B_y$ has positive probability under $Q$, that is $Q(B_y) > 0$.  
+We require the measure $Q$ on $(\mathsf{Y},\mathcal{Y})$ to have support at the observed data $y$. That is, for all neighborhoods $B_y(\epsilon)$, centered at $y$ with $\epsilon>0$, $B_y(\epsilon)$ has positive probability under $Q$, that is $Q(B_y(\epsilon)) > 0$.  
 ]
 
 
