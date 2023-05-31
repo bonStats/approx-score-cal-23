@@ -24,7 +24,7 @@ class: center, middle, inverse, title-slide
 ### Queensland University of Technology
 ]
 .date[
-### TU Delft, April ’23
+### BRAG, June ’23
 ]
 
 ---
@@ -70,7 +70,7 @@ Paper
 
 .pull-right[
 
-&lt;img src="imgs/delft.jpg" height="550" /&gt;
+&lt;img src="imgs/snow-bike.JPG" height="550" /&gt;
 
 
 ]
@@ -148,7 +148,7 @@ class: list-space
 &lt;br&gt;
 1. Draw from prior `\(\bar\theta_m \sim \Pi(\cdot)\)`
 2. Draw new data `\(\tilde{y}_m \sim P(~\cdot~\vert~\bar\theta_m)\)`
-3. Sample posterior `\(\theta_{m,i} \sim \hat{\Pi}(~\cdot~\vert~\tilde{y}_m)\)`
+3. Sample posterior `\(\hat\theta_{m,i} \sim \hat{\Pi}(~\cdot~\vert~\tilde{y}_m)\)`
 ]]
 
 --
@@ -157,8 +157,8 @@ class: list-space
 .content-box-red[
 **Bias correction**
 
-1. Estimate average bias `$$\text{bias} = \sum_{m=1}^{M}\sum_{i=1}^{N}\left(\theta_{m,i} - \bar\theta_m \right)$$`
-2. Correction `\(\theta \sim \hat{\Pi}(~\cdot~\vert~y)\)`  `$$\theta^\prime = \theta - \text{bias}$$`
+1. Estimate average bias `$$\widehat{\text{bias}} = \sum_{m=1}^{M}\sum_{i=1}^{N}\left(\hat\theta_{m,i} - \bar\theta_m \right)$$`
+2. Corrected posterior uses `\(\theta \sim \hat{\Pi}(~\cdot~\vert~y)\)`  `$$\theta^\prime = \theta - \widehat{\text{bias}}$$`
 ]
 ]
 
